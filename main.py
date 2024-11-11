@@ -21,12 +21,39 @@ def get_current_month_statistics(manager):
     for category, amount in monthly_summary.items():
         print(f"  {category}: ${amount:.2f}")
 
+def choose_category():
+    categories = [
+        "Housing",
+        "Utilities",
+        "Groceries",
+        "Transportation",
+        "Healthcare",
+        "Entertainment",
+        "Personal Care",
+        "Clothing & Accessories",
+        "Savings & Investments",
+        "Gifts",
+        "Education",
+        "Other"
+    ]
+    
+    print("\nChoose a category:")
+    for i, category in enumerate(categories, start=1):
+        print(f"{i}. {category}")
+    
+    choice = int(input("Enter the category number: "))
+    if 1 <= choice <= len(categories):
+        return categories[choice - 1]
+    else:
+        print("Invalid choice. Defaulting to 'Other'")
+        return "Other"
+
 def add_new_spending(manager):
     amount = float(input("Enter the amount spent: "))
     purchaser = input("Enter the purchaser's name: ")
-    category = input("Enter the category: ")
+    category = choose_category()  # Use the new category selection function
     shop_name = input("Enter the shop name (optional): ")
-    description = input("Enter the description (optional): ")
+    description = input("What did you buy? (description): ")
     manager.add_spending(amount, purchaser, category, shop_name, description)
     print("Spending added successfully!")
 
