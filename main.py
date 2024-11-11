@@ -4,118 +4,72 @@ from tkinter import messagebox, simpledialog
 from SpendingManager import SpendingManager
 from datetime import datetime
 
-def display_menu():
-    print("\n--- Spending Manager ---")
-    print("1. View current month's spending statistics")
-    print("2. Add a new spending")
-    print("3. Remove a spending")
-    print("4. Exit")
+class SpendingManagerGUI:
+    def __init__(self, master):
+        self.master = master
+        self.manager = SpendingManager()
+        self.master.title("Spending Manager")
 
-def get_current_month_statistics(manager):
-    current_date = datetime.now()
-    monthly_summary = manager.get_monthly_summary(current_date.year, current_date.month)
-    
-    # Calculate total spent and average spending
-    total_spent = sum(monthly_summary.values())
-    average_spending = total_spent / current_date.day if current_date.day > 0 else 0
-    previous_average = manager.get_average_spending(current_date.year, current_date.month)
+        # Create a frame for the buttons
+        self.frame = tk.Frame(self.master)
+        self.frame.pack(pady=10)
 
-    print("\n--- Current Month's Spending Statistics ---")
-    print(f"Total spent this month: ₪{total_spent:.2f}")
-    print(f"Average spending per day: ₪{average_spending:.2f}")
-    print(f"Average spending of previous months: ₪{previous_average:.2f}")
-    
-    print("\nSpending details:")
-    print(f"{'Amount (₪)':<15} {'Category':<30} {'Description':<40}")  # Table header
-    print("-" * 85)  # Separator
+        # Buttons
+        self.view_button = tk.Button(self.frame, text="View Current Month's Statistics", command=self.view_statistics)
+        self.view_button.pack(side=tk.LEFT, padx=5)
 
-    # Display each spending entry
-    for spending in manager.spendings:
-        if spending.date.year == current_date.year and spending.date.month == current_date.month:
-            print(f"₪{spending.amount:<15.2f} {spending.category:<30} {spending.description:<40}")
+        self.add_button = tk.Button(self.frame, text="Add New Spending", command=self.add_spending)
+        self.add_button.pack(side=tk.LEFT, padx=5)
 
-    print("-" * 85)  # Separator
+        self.remove_button = tk.Button(self.frame, text="Remove Spending", command=self.remove_spending)
+        self.remove_button.pack(side=tk.LEFT, padx=5)
 
-    # Comparison message moved to the bottom
-    if total_spent < previous_average:
-        print("💸💸 Great job! You're spending less than your average. Keep it up!💸💸")
-    elif total_spent > previous_average:
-        print("😰😱Uh-oh! Looks like you spending more than usual did you won the lottery? 😅")
-    else:
-        print("Your spending is exactly at your average. Balance is key!")
+        self.exit_button = tk.Button(self.frame, text="Exit", command=self.master.quit)
+        self.exit_button.pack(side=tk.LEFT, padx=5)
 
-    print()  # Add an empty line for better readability
+    def view_statistics(self):
+        current_date = datetime.now()
+        monthly_summary = self.manager.get_monthly_summary(current_date.year, current_date.month)
+        total_spent = sum(monthly_summary.values())
+        average_spending = total_spent / current_date.day if current_date.day > 0 else 0
+        previous_average = self.manager.get_average_spending(current_date.year, current_date.month)
 
-def choose_category():
-    categories = [
-        "Housing",
-        "Utilities",
-        "Groceries",
-        "Transportation",
-        "Healthcare",
-        "Entertainment",
-        "Personal Care",
-        "Clothing & Accessories",
-        "Savings & Investments",
-        "Gifts",
-        "Education",
-        "Other"
-    ]
-    
-    print("\nChoose a category:")
-    for i, category in enumerate(categories, start=1):
-        print(f"{i}. {category}")
-    
-    choice = int(input("Enter the category number: "))
-    if 1 <= choice <= len(categories):
-        return categories[choice - 1]
-    else:
-        print("Invalid choice. Defaulting to 'Other'")
-        return "Other"
+        stats = f"Total spent this month: ₪{total_spent:.2f}\n"
+        stats += f"Average spending per day: ₪{average_spending:.2f}\n"
+        stats += f"Average spending of previous months: ₪{previous_average:.2f}\n"
+        
+        messagebox.showinfo("Current Month's Spending Statistics", stats)
 
-def add_new_spending(manager):
-    amount = float(input("Enter the amount spent: "))
-    purchaser = input("Enter the purchaser's name: ")
-    category = choose_category()  # Use the new category selection function
-    shop_name = input("Enter the shop name (optional): ")
-    description = input("What did you buy? (description): ")
-    manager.add_spending(amount, purchaser, category, shop_name, description)
-    print("Spending added successfully!")
-
-def remove_spending(manager):
-    print("\n--- Current Spendings ---")
-    for index, spending in enumerate(manager.spendings):
-        print(f"{index + 1}. ₪{spending.amount:.2f} - {spending.category} - {spending.description} (Date: {spending.date})")
-
-    try:
-        choice = int(input("Enter the number of the spending you want to remove: "))
-        if 1 <= choice <= len(manager.spendings):
-            removed_spending = manager.spendings.pop(choice - 1)  # Remove the spending
-            manager.save_spendings()  # Save the updated list
-            print(f"Removed spending: ₪{removed_spending.amount:.2f} - {removed_spending.category} - {removed_spending.description}")
+    def add_spending(self):
+        amount = simpledialog.askfloat("Input", "Enter the amount spent:")
+        purchaser = simpledialog.askstring("Input", "Enter the purchaser's name:")
+        category = simpledialog.askstring("Input", "Enter the category:")
+        shop_name = simpledialog.askstring("Input", "Enter the shop name (optional):")
+        description = simpledialog.askstring("Input", "What did you buy? (description):")
+        
+        if amount and purchaser and category and description:
+            self.manager.add_spending(amount, purchaser, category, shop_name, description)
+            messagebox.showinfo("Success", "Spending added successfully!")
         else:
-            print("Invalid choice. No spending removed.")
-    except ValueError:
-        print("Invalid input. Please enter a number.")
+            messagebox.showwarning("Input Error", "Please fill in all fields.")
 
-def main():
-    manager = SpendingManager()
-
-    while True:
-        display_menu()
-        choice = input("Choose an option (1-4): ")
-
-        if choice == '1':
-            get_current_month_statistics(manager)
-        elif choice == '2':
-            add_new_spending(manager)
-        elif choice == '3':
-            remove_spending(manager)  # Call the new remove function
-        elif choice == '4':
-            print("Exiting the program. Goodbye!")
-            break
+    def remove_spending(self):
+        spendings = self.manager.spendings
+        if not spendings:
+            messagebox.showwarning("No Spendings", "There are no spendings to remove.")
+            return
+        
+        spending_list = "\n".join([f"{i + 1}. ₪{s.amount:.2f} - {s.category} - {s.description}" for i, s in enumerate(spendings)])
+        choice = simpledialog.askinteger("Remove Spending", f"Select a spending to remove:\n{spending_list}\nEnter the number:")
+        
+        if choice and 1 <= choice <= len(spendings):
+            removed_spending = spendings.pop(choice - 1)
+            self.manager.save_spendings()
+            messagebox.showinfo("Removed Spending", f"Removed spending: ₪{removed_spending.amount:.2f} - {removed_spending.category} - {removed_spending.description}")
         else:
-            print("Invalid choice. Please select a valid option.")
+            messagebox.showwarning("Invalid Choice", "Please select a valid spending number.")
 
 if __name__ == "__main__":
-    main()
+    root = tk.Tk()
+    app = SpendingManagerGUI(root)
+    root.mainloop()
