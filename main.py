@@ -26,7 +26,8 @@ def add_new_spending(manager):
     purchaser = input("Enter the purchaser's name: ")
     category = input("Enter the category: ")
     shop_name = input("Enter the shop name (optional): ")
-    manager.add_spending(amount, purchaser, category, shop_name)
+    description = input("Enter the description (optional): ")
+    manager.add_spending(amount, purchaser, category, shop_name, description)
     print("Spending added successfully!")
 
 def main():

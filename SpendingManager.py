@@ -3,26 +3,28 @@ from datetime import datetime
 from collections import defaultdict
 
 class Spending:
-    def __init__(self, date, amount, purchaser, category, shop_name=""):
+    def __init__(self, date, amount, purchaser, category, shop_name="", description=""):
         self.date = date
         self.amount = amount
         self.purchaser = purchaser
         self.category = category
         self.shop_name = shop_name
-
+        self.description = description
+        
     def to_dict(self):
         return {
             "date": self.date.isoformat(),
             "amount": self.amount,
             "purchaser": self.purchaser,
             "category": self.category,
-            "shop_name": self.shop_name
+            "shop_name": self.shop_name,
+            "description": self.description
         }
 
     @staticmethod
     def from_dict(data):
         date = datetime.fromisoformat(data["date"])
-        return Spending(date, data["amount"], data["purchaser"], data["category"], data["shop_name"])
+        return Spending(date, data["amount"], data["purchaser"], data["category"], data["shop_name"], data["description"])
 
 class SpendingManager:
     def __init__(self, filename='spendings.json'):
@@ -30,9 +32,9 @@ class SpendingManager:
         self.filename = filename
         self.load_spendings()
 
-    def add_spending(self, amount, purchaser, category, shop_name=""):
+    def add_spending(self, amount, purchaser, category, shop_name="", description=""):
         date = datetime.now()
-        spending = Spending(date, amount, purchaser, category, shop_name)
+        spending = Spending(date, amount, purchaser, category, shop_name, description)
         self.spendings.append(spending)
         self.save_spendings()  # Save after adding a new spending
 

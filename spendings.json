@@ -1,1 +1,1 @@
-[{"date": "2024-11-11T17:18:52.861045", "amount": 250.0, "purchaser": "Or", "category": "Groceries", "shop_name": "Tiv Taam"}, {"date": "2024-11-11T17:20:18.564579", "amount": 300.0, "purchaser": "Gal", "category": "Rami Levi", "shop_name": "Rami Levi"}]
+[{"date": "2024-11-11T17:18:52.861045", "amount": 250.0, "purchaser": "Or", "category": "Groceries", "shop_name": "Tiv Taam","description":"Meat"}, {"date": "2024-11-11T17:20:18.564579", "amount": 300.0, "purchaser": "Gal", "category": "Rami Levi", "shop_name": "Rami Levi","description":"Milk"}]
