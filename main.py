@@ -11,17 +11,26 @@ def display_menu():
 def get_current_month_statistics(manager):
     current_date = datetime.now()
     monthly_summary = manager.get_monthly_summary(current_date.year, current_date.month)
+    
+    # Calculate total spent and average spending
     total_spent = sum(monthly_summary.values())
     average_spending = total_spent / current_date.day if current_date.day > 0 else 0
 
     print("\n--- Current Month's Spending Statistics ---")
-    print(f"Total spent this month: ${total_spent:.2f}")
-    print(f"Average spending per day: ${average_spending:.2f}")
-    print("\nSpending amount per category:")
-    print(f"{'Category':<30} {'Amount':<10}")  # Table header
-    print("-" * 40)  # Separator
-    for category, amount in monthly_summary.items():
-        print(f"{category:<30} ${amount:<10.2f}")  # Table rows
+    print(f"Total spent this month: ₪{total_spent:.2f}")
+    print(f"Average spending per day: ₪{average_spending:.2f}")
+    print("\nSpending details:")
+    print(f"{'Amount (₪)':<15} {'Category':<30} {'Description':<40}")  # Table header
+    print("-" * 85)  # Separator
+
+    # Display each spending entry
+    for spending in manager.spendings:
+        if spending.date.year == current_date.year and spending.date.month == current_date.month:
+            print(f"₪{spending.amount:<15.2f} {spending.category:<30} {spending.description:<40}")
+
+    print("-" * 85)  # Separator
+    print(f"Total Spendings: ₪{total_spent:.2f}")
+    print(f"Average Spending per Day: ₪{average_spending:.2f}")
 
 def choose_category():
     categories = [
