@@ -19,11 +19,11 @@ A simple Expense Tracker application built with Python and Tkinter. This applica
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/yourusername/spending-manager.git
+   git clone https://github.com/benami171/Expense_Tracker.git
    ```
 2. Navigate to the project directory:
    ```bash
-   cd spending-manager
+   cd Expense_Tracker
    ```
 3. Ensure you have Python installed on your machine. You can download it from [python.org](https://www.python.org/downloads/).
 
