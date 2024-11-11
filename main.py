@@ -1,6 +1,7 @@
 # main.py
 import tkinter as tk
 from tkinter import messagebox, simpledialog
+from tkinter import ttk  # Import ttk for themed widgets
 from SpendingManager import SpendingManager
 from datetime import datetime
 
@@ -9,23 +10,29 @@ class SpendingManagerGUI:
         self.master = master
         self.manager = SpendingManager()
         self.master.title("Spending Manager")
+        self.master.geometry("400x300")  # Set a fixed size for the window
+        self.master.configure(bg="#f0f0f0")  # Set a background color
 
         # Create a frame for the buttons
-        self.frame = tk.Frame(self.master)
+        self.frame = ttk.Frame(self.master, padding="10")
         self.frame.pack(pady=10)
 
-        # Buttons
-        self.view_button = tk.Button(self.frame, text="View Current Month's Statistics", command=self.view_statistics)
+        # Buttons with modern styling
+        self.view_button = ttk.Button(self.frame, text="View Current Month's Statistics", command=self.view_statistics)
         self.view_button.pack(side=tk.LEFT, padx=5)
 
-        self.add_button = tk.Button(self.frame, text="Add New Spending", command=self.add_spending)
+        self.add_button = ttk.Button(self.frame, text="Add New Spending", command=self.add_spending)
         self.add_button.pack(side=tk.LEFT, padx=5)
 
-        self.remove_button = tk.Button(self.frame, text="Remove Spending", command=self.remove_spending)
+        self.remove_button = ttk.Button(self.frame, text="Remove Spending", command=self.remove_spending)
         self.remove_button.pack(side=tk.LEFT, padx=5)
 
-        self.exit_button = tk.Button(self.frame, text="Exit", command=self.master.quit)
+        self.exit_button = ttk.Button(self.frame, text="Exit", command=self.master.quit)
         self.exit_button.pack(side=tk.LEFT, padx=5)
+
+        # Add a title label
+        self.title_label = ttk.Label(self.master, text="Spending Manager", font=("Helvetica", 16), background="#f0f0f0")
+        self.title_label.pack(pady=10)
 
     def view_statistics(self):
         current_date = datetime.now()
