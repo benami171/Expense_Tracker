@@ -15,10 +15,13 @@ def get_current_month_statistics(manager):
     # Calculate total spent and average spending
     total_spent = sum(monthly_summary.values())
     average_spending = total_spent / current_date.day if current_date.day > 0 else 0
+    previous_average = manager.get_average_spending(current_date.year, current_date.month)
 
     print("\n--- Current Month's Spending Statistics ---")
     print(f"Total spent this month: ₪{total_spent:.2f}")
     print(f"Average spending per day: ₪{average_spending:.2f}")
+    print(f"Average spending of previous months: ₪{previous_average:.2f}")
+    
     print("\nSpending details:")
     print(f"{'Amount (₪)':<15} {'Category':<30} {'Description':<40}")  # Table header
     print("-" * 85)  # Separator
@@ -29,8 +32,16 @@ def get_current_month_statistics(manager):
             print(f"₪{spending.amount:<15.2f} {spending.category:<30} {spending.description:<40}")
 
     print("-" * 85)  # Separator
-    print(f"Total Spendings: ₪{total_spent:.2f}")
-    print(f"Average Spending per Day: ₪{average_spending:.2f}")
+
+    # Comparison message moved to the bottom
+    if total_spent < previous_average:
+        print("Great job! You're spending less than your average. Keep it up!")
+    elif total_spent > previous_average:
+        print("Uh-oh! Looks like you're spending more than usual. Maybe it's time to cut back a bit? 😅")
+    else:
+        print("You're right on track! Your spending is exactly at your average. Balance is key!")
+
+    print()  # Add an empty line for better readability
 
 def choose_category():
     categories = [

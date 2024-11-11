@@ -73,4 +73,13 @@ class SpendingManager:
                 categories[spending.category][spending.purchaser] += spending.amount
         return dict(categories)
 
+    def get_average_spending(self, year, month):
+        total = 0
+        count = 0
+        for spending in self.spendings:
+            if spending.date.year == year and spending.date.month < month:  # Only consider previous months
+                total += spending.amount
+                count += 1
+        return total / count if count > 0 else 0
+
 
