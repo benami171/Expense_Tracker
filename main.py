@@ -10,7 +10,7 @@ class SpendingManagerGUI:
         self.master = master
         self.manager = SpendingManager()
         self.master.title("Spending Manager")
-        self.master.geometry("400x300")  # Set a fixed size for the window
+        self.master.geometry("500x400")  # Set a fixed size for the window
         self.master.configure(bg="#f0f0f0")  # Set a background color
 
         # Create a frame for the buttons
@@ -19,7 +19,7 @@ class SpendingManagerGUI:
 
         # Buttons with modern styling
         self.view_button = ttk.Button(self.frame, text="View Current Month's Statistics", command=self.view_statistics)
-        self.view_button.pack(side=tk.LEFT, padx=5)
+        self.view_button.pack(side=tk.LEFT, padx=5) ## The meaning of padx is padding on the x-axis
 
         self.add_button = ttk.Button(self.frame, text="Add New Spending", command=self.add_spending)
         self.add_button.pack(side=tk.LEFT, padx=5)
@@ -34,6 +34,10 @@ class SpendingManagerGUI:
         self.title_label = ttk.Label(self.master, text="Spending Manager", font=("Helvetica", 16), background="#f0f0f0")
         self.title_label.pack(pady=10)
 
+        # Text widget for displaying statistics
+        self.stats_text = tk.Text(self.master, height=10, width=50, bg="#f0f0f0", font=("Helvetica", 12))
+        self.stats_text.pack(pady=10) ##
+
     def view_statistics(self):
         current_date = datetime.now()
         monthly_summary = self.manager.get_monthly_summary(current_date.year, current_date.month)
@@ -41,11 +45,15 @@ class SpendingManagerGUI:
         average_spending = total_spent / current_date.day if current_date.day > 0 else 0
         previous_average = self.manager.get_average_spending(current_date.year, current_date.month)
 
+        # Clear the text widget
+        self.stats_text.delete(1.0, tk.END)
+
+        # Insert the statistics into the text widget
         stats = f"Total spent this month: ₪{total_spent:.2f}\n"
         stats += f"Average spending per day: ₪{average_spending:.2f}\n"
         stats += f"Average spending of previous months: ₪{previous_average:.2f}\n"
         
-        messagebox.showinfo("Current Month's Spending Statistics", stats)
+        self.stats_text.insert(tk.END, stats)
 
     def add_spending(self):
         amount = simpledialog.askfloat("Input", "Enter the amount spent:")
@@ -56,7 +64,7 @@ class SpendingManagerGUI:
         
         if amount and purchaser and category and description:
             self.manager.add_spending(amount, purchaser, category, shop_name, description)
-            messagebox.showinfo("Success", "Spending added successfully!")
+            self.view_statistics()  # Update statistics after adding spending
         else:
             messagebox.showwarning("Input Error", "Please fill in all fields.")
 
@@ -72,6 +80,7 @@ class SpendingManagerGUI:
         if choice and 1 <= choice <= len(spendings):
             removed_spending = spendings.pop(choice - 1)
             self.manager.save_spendings()
+            self.view_statistics()  # Update statistics after removing spending
             messagebox.showinfo("Removed Spending", f"Removed spending: ₪{removed_spending.amount:.2f} - {removed_spending.category} - {removed_spending.description}")
         else:
             messagebox.showwarning("Invalid Choice", "Please select a valid spending number.")
