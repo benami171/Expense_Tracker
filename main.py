@@ -1,7 +1,6 @@
 # main.py
 import tkinter as tk
-from tkinter import messagebox, simpledialog
-from tkinter import ttk  # Import ttk for themed widgets
+from tkinter import messagebox, ttk, simpledialog
 from SpendingManager import SpendingManager
 from datetime import datetime
 
@@ -10,7 +9,7 @@ class SpendingManagerGUI:
         self.master = master
         self.manager = SpendingManager()
         self.master.title("Spending Manager")
-        self.master.geometry("500x400")  # Set a fixed size for the window
+        self.master.geometry("500x370")  # Set a fixed size for the window
         self.master.configure(bg="#f0f0f0")  # Set a background color
 
         # Create a frame for the buttons
@@ -19,9 +18,9 @@ class SpendingManagerGUI:
 
         # Buttons with modern styling
         self.view_button = ttk.Button(self.frame, text="View Current Month's Statistics", command=self.view_statistics)
-        self.view_button.pack(side=tk.LEFT, padx=5) ## The meaning of padx is padding on the x-axis
+        self.view_button.pack(side=tk.LEFT, padx=5)
 
-        self.add_button = ttk.Button(self.frame, text="Add New Spending", command=self.add_spending)
+        self.add_button = ttk.Button(self.frame, text="Add New Spending", command=self.open_add_spending_dialog)
         self.add_button.pack(side=tk.LEFT, padx=5)
 
         self.remove_button = ttk.Button(self.frame, text="Remove Spending", command=self.remove_spending)
@@ -36,7 +35,56 @@ class SpendingManagerGUI:
 
         # Text widget for displaying statistics
         self.stats_text = tk.Text(self.master, height=10, width=50, bg="#f0f0f0", font=("Helvetica", 12))
-        self.stats_text.pack(pady=10) ##
+        self.stats_text.pack(pady=10)
+
+    def open_add_spending_dialog(self):
+        dialog = tk.Toplevel(self.master)
+        dialog.title("Add New Spending")
+        dialog.geometry("300x370")
+
+        # Create labels and entry fields
+        ttk.Label(dialog, text="Amount:").pack(pady=5)
+        amount_entry = ttk.Entry(dialog)
+        amount_entry.pack(pady=5)
+
+        ttk.Label(dialog, text="Purchaser's Name:").pack(pady=5)
+        purchaser_entry = ttk.Entry(dialog)
+        purchaser_entry.pack(pady=5)
+
+        ttk.Label(dialog, text="Category:").pack(pady=5)
+        category_combobox = ttk.Combobox(dialog, values=[
+            "Housing", "Utilities", "Groceries", "Transportation", 
+            "Healthcare", "Entertainment", "Personal Care", 
+            "Clothing & Accessories", "Savings & Investments", 
+            "Gifts", "Education", "Other"
+        ])
+        category_combobox.pack(pady=5)
+
+        ttk.Label(dialog, text="Shop Name (optional):").pack(pady=5)
+        shop_name_entry = ttk.Entry(dialog)
+        shop_name_entry.pack(pady=5)
+
+        ttk.Label(dialog, text="Description:").pack(pady=5)
+        description_entry = ttk.Entry(dialog)
+        description_entry.pack(pady=5)
+
+        # Submit button
+        submit_button = ttk.Button(dialog, text="Add Spending", command=lambda: self.add_spending(
+            amount_entry.get(), purchaser_entry.get(), category_combobox.get(), 
+            shop_name_entry.get(), description_entry.get(), dialog))
+        submit_button.pack(pady=10)
+
+    def add_spending(self, amount, purchaser, category, shop_name, description, dialog):
+        try:
+            amount = float(amount)
+            if not all([purchaser, category, description]):
+                raise ValueError("Please fill in all fields.")
+            self.manager.add_spending(amount, purchaser, category, shop_name, description)
+            self.view_statistics()  # Update statistics after adding spending
+            dialog.destroy()  # Close the dialog
+            messagebox.showinfo("Success", "Spending added successfully!")
+        except ValueError as e:
+            messagebox.showwarning("Input Error", str(e))
 
     def view_statistics(self):
         current_date = datetime.now()
@@ -54,19 +102,6 @@ class SpendingManagerGUI:
         stats += f"Average spending of previous months: ₪{previous_average:.2f}\n"
         
         self.stats_text.insert(tk.END, stats)
-
-    def add_spending(self):
-        amount = simpledialog.askfloat("Input", "Enter the amount spent:")
-        purchaser = simpledialog.askstring("Input", "Enter the purchaser's name:")
-        category = simpledialog.askstring("Input", "Enter the category:")
-        shop_name = simpledialog.askstring("Input", "Enter the shop name (optional):")
-        description = simpledialog.askstring("Input", "What did you buy? (description):")
-        
-        if amount and purchaser and category and description:
-            self.manager.add_spending(amount, purchaser, category, shop_name, description)
-            self.view_statistics()  # Update statistics after adding spending
-        else:
-            messagebox.showwarning("Input Error", "Please fill in all fields.")
 
     def remove_spending(self):
         spendings = self.manager.spendings
