@@ -8,7 +8,7 @@ class SpendingManagerGUI:
     def __init__(self, master):
         self.master = master
         self.manager = Expense_Tracker()
-        self.master.title("Spending Manager")
+        self.master.title("Expense Tracker")
         self.master.geometry("500x370")  # Set a fixed size for the window
         self.master.configure(bg="#f0f0f0")  # Set a background color
 
