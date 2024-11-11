@@ -74,12 +74,16 @@ class SpendingManager:
         return dict(categories)
 
     def get_average_spending(self, year, month):
-        total = 0
-        count = 0
+        total_spent = 0
+        unique_months = set()
+
         for spending in self.spendings:
-            if spending.date.year == year and spending.date.month < month:  # Only consider previous months
-                total += spending.amount
-                count += 1
-        return total / count if count > 0 else 0
+            # Check if the spending is from a previous month
+            if spending.date.year < year or (spending.date.year == year and spending.date.month < month):
+                total_spent += spending.amount
+                unique_months.add((spending.date.year, spending.date.month))  # Track unique months
+
+        month_count = len(unique_months)  # Count unique months
+        return total_spent / month_count if month_count > 0 else 0
 
 

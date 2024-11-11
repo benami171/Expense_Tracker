@@ -6,7 +6,8 @@ def display_menu():
     print("\n--- Spending Manager ---")
     print("1. View current month's spending statistics")
     print("2. Add a new spending")
-    print("3. Exit")
+    print("3. Remove a spending")
+    print("4. Exit")
 
 def get_current_month_statistics(manager):
     current_date = datetime.now()
@@ -35,11 +36,11 @@ def get_current_month_statistics(manager):
 
     # Comparison message moved to the bottom
     if total_spent < previous_average:
-        print("Great job! You're spending less than your average. Keep it up!")
+        print("💸💸 Great job! You're spending less than your average. Keep it up!💸💸")
     elif total_spent > previous_average:
-        print("Uh-oh! Looks like you're spending more than usual. Maybe it's time to cut back a bit? 😅")
+        print("😰😱Uh-oh! Looks like you spending more than usual did you won the lottery? 😅")
     else:
-        print("You're right on track! Your spending is exactly at your average. Balance is key!")
+        print("Your spending is exactly at your average. Balance is key!")
 
     print()  # Add an empty line for better readability
 
@@ -79,18 +80,36 @@ def add_new_spending(manager):
     manager.add_spending(amount, purchaser, category, shop_name, description)
     print("Spending added successfully!")
 
+def remove_spending(manager):
+    print("\n--- Current Spendings ---")
+    for index, spending in enumerate(manager.spendings):
+        print(f"{index + 1}. ₪{spending.amount:.2f} - {spending.category} - {spending.description} (Date: {spending.date})")
+
+    try:
+        choice = int(input("Enter the number of the spending you want to remove: "))
+        if 1 <= choice <= len(manager.spendings):
+            removed_spending = manager.spendings.pop(choice - 1)  # Remove the spending
+            manager.save_spendings()  # Save the updated list
+            print(f"Removed spending: ₪{removed_spending.amount:.2f} - {removed_spending.category} - {removed_spending.description}")
+        else:
+            print("Invalid choice. No spending removed.")
+    except ValueError:
+        print("Invalid input. Please enter a number.")
+
 def main():
     manager = SpendingManager()
 
     while True:
         display_menu()
-        choice = input("Choose an option (1-3): ")
+        choice = input("Choose an option (1-4): ")
 
         if choice == '1':
             get_current_month_statistics(manager)
         elif choice == '2':
             add_new_spending(manager)
         elif choice == '3':
+            remove_spending(manager)  # Call the new remove function
+        elif choice == '4':
             print("Exiting the program. Goodbye!")
             break
         else:
