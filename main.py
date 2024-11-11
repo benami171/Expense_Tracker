@@ -17,9 +17,11 @@ def get_current_month_statistics(manager):
     print("\n--- Current Month's Spending Statistics ---")
     print(f"Total spent this month: ${total_spent:.2f}")
     print(f"Average spending per day: ${average_spending:.2f}")
-    print("Spending amount per category:")
+    print("\nSpending amount per category:")
+    print(f"{'Category':<30} {'Amount':<10}")  # Table header
+    print("-" * 40)  # Separator
     for category, amount in monthly_summary.items():
-        print(f"  {category}: ${amount:.2f}")
+        print(f"{category:<30} ${amount:<10.2f}")  # Table rows
 
 def choose_category():
     categories = [
