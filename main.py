@@ -1,4 +1,6 @@
 # main.py
+import tkinter as tk
+from tkinter import messagebox, simpledialog
 from SpendingManager import SpendingManager
 from datetime import datetime
 
