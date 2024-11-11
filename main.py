@@ -1,13 +1,13 @@
 # main.py
 import tkinter as tk
 from tkinter import messagebox, ttk, simpledialog
-from SpendingManager import SpendingManager
+from Expense_Tracker import Expense_Tracker
 from datetime import datetime
 
 class SpendingManagerGUI:
     def __init__(self, master):
         self.master = master
-        self.manager = SpendingManager()
+        self.manager = Expense_Tracker()
         self.master.title("Spending Manager")
         self.master.geometry("500x370")  # Set a fixed size for the window
         self.master.configure(bg="#f0f0f0")  # Set a background color

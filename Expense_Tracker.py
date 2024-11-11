@@ -26,7 +26,7 @@ class Spending:
         date = datetime.fromisoformat(data["date"])
         return Spending(date, data["amount"], data["purchaser"], data["category"], data["shop_name"], data["description"])
 
-class SpendingManager:
+class Expense_Tracker:
     def __init__(self, filename='spendings.json'):
         self.spendings = []
         self.filename = filename
