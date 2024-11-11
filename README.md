@@ -1,6 +1,6 @@
-# Spending Manager
+# Expense Tracker
 
-A simple spending manager application built with Python and Tkinter. This application allows users to track their spending, view monthly statistics, and manage their expenses through a user-friendly graphical interface.
+A simple Expense Tracker application built with Python and Tkinter. This application allows users to track their spending, view monthly statistics, and manage their expenses through a user-friendly graphical interface.
 
 ## Features
 
