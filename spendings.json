@@ -1,1 +1,138 @@
-[{"date": "2024-11-11T17:18:52.861045", "amount": 250.0, "purchaser": "Or", "category": "Groceries", "shop_name": "Tiv Taam", "description": "Meat"}, {"date": "2024-11-11T18:15:21.564461", "amount": 90.0, "purchaser": "Gal", "category": "Housing", "shop_name": "Shekem Electric", "description": "emergency light"}, {"date": "2024-11-11T18:39:07.959261", "amount": 35.0, "purchaser": "Gal", "category": "Food", "shop_name": "Burger King", "description": "burger"}, {"date": "2024-11-11T18:40:43.119318", "amount": 10.0, "purchaser": "Gal", "category": "Entertainment", "shop_name": "", "description": "Movie"}, {"date": "2024-10-01T18:20:43.119318", "amount": 250.0, "purchaser": "Or", "category": "Groceries", "shop_name": "Supermarket", "description": "Weekly groceries"}, {"date": "2024-10-03T18:10:43.119318", "amount": 90.0, "purchaser": "Gal", "category": "Utilities", "shop_name": "Electric Company", "description": "Monthly electricity bill"}, {"date": "2024-10-05T18:23:43.119318", "amount": 150.0, "purchaser": "Or", "category": "Healthcare", "shop_name": "Local Pharmacy", "description": "Prescription medication"}, {"date": "2024-10-10T22:18:52.861045", "amount": 200.0, "purchaser": "Gal", "category": "Clothing & Accessories", "shop_name": "Fashion Store", "description": "New dress for a wedding"}, {"date": "2024-10-12T13:08:52.861045", "amount": 50.0, "purchaser": "Or", "category": "Entertainment", "shop_name": "Cinema", "description": "Movie night with friends"}, {"date": "2024-10-15T14:18:52.861045", "amount": 30.0, "purchaser": "Or", "category": "Food", "shop_name": "Fast Food", "description": "Lunch at a fast food restaurant"}, {"date": "2024-10-20T12:12:52.861045", "amount": 100.0, "purchaser": "Gal", "category": "Transportation", "shop_name": "Gas Station", "description": "Fuel for the car"}, {"date": "2024-10-25T17:44:52.861045", "amount": 75.0, "purchaser": "Or", "category": "Personal Care", "shop_name": "Beauty Salon", "description": "Haircut and styling"}, {"date": "2024-10-28T19:18:52.861045", "amount": 40.0, "purchaser": "Or", "category": "Gifts", "shop_name": "Gift Shop", "description": "Birthday gift for a friend"}, {"date": "2024-09-05T10:15:52.861045", "amount": 85.0, "purchaser": "Gal", "category": "Groceries", "shop_name": "Supermarket", "description": "Weekly grocery shopping"}, {"date": "2024-09-15T16:30:52.861045", "amount": 120.0, "purchaser": "Or", "category": "Entertainment", "shop_name": "Concert Hall", "description": "Concert tickets"}, {"date": "2024-09-25T14:20:52.861045", "amount": 360.0, "purchaser": "Gal", "category": "Transportation", "shop_name": "Public Transit", "description": "Monthly bus pass"}, {"date": "2024-11-11T20:15:08.247859", "amount": 260.0, "purchaser": "Gal", "category": "Clothing & Accessories", "shop_name": "Nike", "description": "Shoes"}]
+[
+    {
+        "date": "2024-11-11T17:18:52.861045",
+        "amount": 250.0,
+        "purchaser": "Or",
+        "category": "Groceries",
+        "shop_name": "Tiv Taam",
+        "description": "Meat"
+    },
+    {
+        "date": "2024-11-11T18:15:21.564461",
+        "amount": 90.0,
+        "purchaser": "Gal",
+        "category": "Housing",
+        "shop_name": "Shekem Electric",
+        "description": "emergency light"
+    },
+    {
+        "date": "2024-11-11T18:39:07.959261",
+        "amount": 35.0,
+        "purchaser": "Gal",
+        "category": "Food",
+        "shop_name": "Burger King",
+        "description": "burger"
+    },
+    {
+        "date": "2024-11-11T18:40:43.119318",
+        "amount": 10.0,
+        "purchaser": "Gal",
+        "category": "Entertainment",
+        "shop_name": "",
+        "description": "Movie"
+    },
+    {
+        "date": "2024-10-01T18:20:43.119318",
+        "amount": 250.0,
+        "purchaser": "Or",
+        "category": "Groceries",
+        "shop_name": "Supermarket",
+        "description": "Weekly groceries"
+    },
+    {
+        "date": "2024-10-03T18:10:43.119318",
+        "amount": 90.0,
+        "purchaser": "Gal",
+        "category": "Utilities",
+        "shop_name": "Electric Company",
+        "description": "Monthly electricity bill"
+    },
+    {
+        "date": "2024-10-05T18:23:43.119318",
+        "amount": 150.0,
+        "purchaser": "Or",
+        "category": "Healthcare",
+        "shop_name": "Local Pharmacy",
+        "description": "Prescription medication"
+    },
+    {
+        "date": "2024-10-10T22:18:52.861045",
+        "amount": 200.0,
+        "purchaser": "Gal",
+        "category": "Clothing & Accessories",
+        "shop_name": "Fashion Store",
+        "description": "New dress for a wedding"
+    },
+    {
+        "date": "2024-10-12T13:08:52.861045",
+        "amount": 50.0,
+        "purchaser": "Or",
+        "category": "Entertainment",
+        "shop_name": "Cinema",
+        "description": "Movie night with friends"
+    },
+    {
+        "date": "2024-10-15T14:18:52.861045",
+        "amount": 30.0,
+        "purchaser": "Or",
+        "category": "Food",
+        "shop_name": "Fast Food",
+        "description": "Lunch at a fast food restaurant"
+    },
+    {
+        "date": "2024-10-20T12:12:52.861045",
+        "amount": 100.0,
+        "purchaser": "Gal",
+        "category": "Transportation",
+        "shop_name": "Gas Station",
+        "description": "Fuel for the car"
+    },
+    {
+        "date": "2024-10-25T17:44:52.861045",
+        "amount": 75.0,
+        "purchaser": "Or",
+        "category": "Personal Care",
+        "shop_name": "Beauty Salon",
+        "description": "Haircut and styling"
+    },
+    {
+        "date": "2024-10-28T19:18:52.861045",
+        "amount": 40.0,
+        "purchaser": "Or",
+        "category": "Gifts",
+        "shop_name": "Gift Shop",
+        "description": "Birthday gift for a friend"
+    },
+    {
+        "date": "2024-09-05T10:15:52.861045",
+        "amount": 85.0,
+        "purchaser": "Gal",
+        "category": "Groceries",
+        "shop_name": "Supermarket",
+        "description": "Weekly grocery shopping"
+    },
+    {
+        "date": "2024-09-15T16:30:52.861045",
+        "amount": 120.0,
+        "purchaser": "Or",
+        "category": "Entertainment",
+        "shop_name": "Concert Hall",
+        "description": "Concert tickets"
+    },
+    {
+        "date": "2024-09-25T14:20:52.861045",
+        "amount": 360.0,
+        "purchaser": "Gal",
+        "category": "Transportation",
+        "shop_name": "Public Transit",
+        "description": "Monthly bus pass"
+    },
+    {
+        "date": "2024-11-11T20:15:08.247859",
+        "amount": 260.0,
+        "purchaser": "Gal",
+        "category": "Clothing & Accessories",
+        "shop_name": "Nike",
+        "description": "Shoes"
+    }
+]
